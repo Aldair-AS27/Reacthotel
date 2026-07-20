@@ -6,10 +6,10 @@ import toast from 'react-hot-toast';
 export default function Clientes() {
   const [clientes, setClientes] = useState([]);
   const [mostrarFormulario, setMostrarFormulario] = useState(false);
-  
+
   // Nuevo estado para saber si estamos editando (guarda el ID) o creando (es null)
   const [clienteIdEditando, setClienteIdEditando] = useState(null);
-  
+
   const [nuevoCliente, setNuevoCliente] = useState({
     nombre: '',
     apellido: '',
@@ -56,10 +56,11 @@ export default function Clientes() {
         await createCliente(nuevoCliente);
         toast.success("Cliente creado exitosamente");
       }
-      
+
       limpiarFormulario();
+
       cargarClientes();
-      
+
     } catch (error) {
       const mensajeError = error.response?.data?.detail || "Ocurrió un error al guardar";
       toast.error(typeof mensajeError === 'string' ? mensajeError : "Error de validación en los datos");
@@ -101,7 +102,8 @@ export default function Clientes() {
     <div className="p-8 max-w-5xl mx-auto">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold text-gray-800">Gestión de Clientes</h1>
-        <button 
+
+        <button
           onClick={() => {
             if (mostrarFormulario) {
               limpiarFormulario();
@@ -123,14 +125,14 @@ export default function Clientes() {
               {clienteIdEditando ? 'Actualizar Datos del Cliente' : 'Registrar Nuevo Cliente'}
             </h2>
           </div>
-          
+
           <input required name="nombre" value={nuevoCliente.nombre} onChange={handleInputChange} placeholder="Nombre *" className="p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
           <input required name="apellido" value={nuevoCliente.apellido} onChange={handleInputChange} placeholder="Apellido *" className="p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
           <input required name="dni" value={nuevoCliente.dni} onChange={handleInputChange} placeholder="DNI *" className="p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
           <input name="email" type="email" value={nuevoCliente.email} onChange={handleInputChange} placeholder="Email" className="p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
           <input name="telefono" value={nuevoCliente.telefono} onChange={handleInputChange} placeholder="Teléfono" className="p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
           <input name="direccion" value={nuevoCliente.direccion} onChange={handleInputChange} placeholder="Dirección" className="p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
-          
+
           <div className="col-span-2 flex justify-end mt-4">
             <button type="submit" className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition">
               {clienteIdEditando ? 'Actualizar Cliente' : 'Guardar Cliente'}
@@ -157,13 +159,13 @@ export default function Clientes() {
                 <td className="p-3 text-gray-600">{cliente.dni}</td>
                 <td className="p-3 text-gray-600">{cliente.email || 'N/A'}</td>
                 <td className="p-3 text-center space-x-3">
-                  <button 
+                  <button
                     onClick={() => handleEdit(cliente)}
                     className="text-blue-500 hover:text-blue-700 font-semibold transition"
                   >
                     Editar
                   </button>
-                  <button 
+                  <button
                     onClick={() => handleDelete(cliente.id)}
                     className="text-red-500 hover:text-red-700 font-semibold transition"
                   >
