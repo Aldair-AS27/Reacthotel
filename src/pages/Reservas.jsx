@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { getReservas, createReserva, updateReserva, getClientes, getHabitaciones } from '../api/services';
+// Asegúrate de importar deleteReserva desde tus servicios de la API
+import { getReservas, createReserva, updateReserva, deleteReserva, getClientes, getHabitaciones } from '../api/services';
 import toast from 'react-hot-toast';
 
 export default function Reservas() {
@@ -97,6 +98,22 @@ export default function Reservas() {
         } catch (error) {
             toast.error("Error al actualizar la reserva. Revisa las fechas.");
             console.error(error);
+        }
+    };
+
+    // Función GOD para eliminar con confirmación
+    const handleDelete = async (id) => {
+        const confirmar = window.confirm(`¿Estás completamente seguro de eliminar la reserva #${id}? Esta acción no se puede deshacer.`);
+
+        if (confirmar) {
+            try {
+                await deleteReserva(id);
+                toast.success(`Reserva #${id} eliminada correctamente`);
+                cargarDatos(); // Recargamos la tabla para refrescar los cambios
+            } catch (error) {
+                toast.error("Error al eliminar la reserva");
+                console.error(error);
+            }
         }
     };
 
@@ -199,12 +216,18 @@ export default function Reservas() {
                                         {reserva.estado}
                                     </span>
                                 </td>
-                                <td className="p-3 text-center">
+                                <td className="p-3 text-center flex justify-center gap-2">
                                     <button
                                         onClick={() => abrirEditar(reserva)}
                                         className="bg-amber-500 text-white px-3 py-1 rounded text-sm hover:bg-amber-600 transition"
                                     >
                                         Editar
+                                    </button>
+                                    <button
+                                        onClick={() => handleDelete(reserva.id)}
+                                        className="bg-red-600 text-white px-3 py-1 rounded text-sm hover:bg-red-700 transition"
+                                    >
+                                        Eliminar
                                     </button>
                                 </td>
                             </tr>
