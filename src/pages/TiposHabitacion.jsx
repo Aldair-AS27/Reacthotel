@@ -81,7 +81,7 @@ export default function TiposHabitacion() {
     };
 
     // URL por defecto si el usuario no pone una
-    const imagenPorDefecto = "https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=800&q=80";
+    const imagenPorDefecto = "https://www.swissotel.com/assets/0/92/2119/2178/2217/2219/6442451722/83eb355a-2f1c-49d8-ad51-1ccce3b52b33.jpg";
 
     return (
         <div className="p-8 max-w-6xl mx-auto">
