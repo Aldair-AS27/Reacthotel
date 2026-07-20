@@ -45,7 +45,7 @@ export default function Facturas() {
                 <option value="" disabled>Seleccione Reserva...</option>
                 {reservas.map(r => <option key={r.id} value={r.id}>Reserva #{r.id} - Hab. {r.habitacion_id}</option>)}
             </select>
-            <input placeholder="Notas adicionales..." className="p-2 border rounded" 
+            <input placeholder="Notas adicionales..." className="p-2 border rounded"
                 value={nuevaFactura.notas} onChange={e => setNuevaFactura({...nuevaFactura, notas: e.target.value})} />
             <div className="flex justify-end"><button type="submit" className="bg-blue-600 text-white px-6 py-2 rounded">Generar</button></div>
             </form>

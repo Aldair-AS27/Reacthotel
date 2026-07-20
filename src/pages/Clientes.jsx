@@ -5,7 +5,7 @@ import toast from 'react-hot-toast';
 export default function Clientes() {
   const [clientes, setClientes] = useState([]);
   const [mostrarFormulario, setMostrarFormulario] = useState(false);
-  
+
   // Estado para el nuevo cliente basado en tu esquema ClienteCreate del Swagger
   const [nuevoCliente, setNuevoCliente] = useState({
     nombre: '',
@@ -40,13 +40,13 @@ export default function Clientes() {
     try {
       // Intentamos crear el cliente en el backend
       await createCliente(nuevoCliente);
-      
+
       // Si funciona, mostramos éxito, limpiamos el formulario y recargamos la lista
       toast.success("Cliente creado exitosamente");
       setNuevoCliente({ nombre: '', apellido: '', dni: '', email: '', telefono: '', direccion: '' });
       setMostrarFormulario(false);
       cargarClientes();
-      
+
     } catch (error) {
       // Manejo de errores visual
       const mensajeError = error.response?.data?.detail || "Ocurrió un error al guardar";
@@ -59,7 +59,7 @@ export default function Clientes() {
     <div className="p-8 max-w-5xl mx-auto">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold text-gray-800">Gestión de Clientes</h1>
-        <button 
+        <button
           onClick={() => setMostrarFormulario(!mostrarFormulario)}
           className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition"
         >
@@ -76,7 +76,7 @@ export default function Clientes() {
           <input name="email" type="email" value={nuevoCliente.email} onChange={handleInputChange} placeholder="Email" className="p-2 border rounded" />
           <input name="telefono" value={nuevoCliente.telefono} onChange={handleInputChange} placeholder="Teléfono" className="p-2 border rounded" />
           <input name="direccion" value={nuevoCliente.direccion} onChange={handleInputChange} placeholder="Dirección" className="p-2 border rounded" />
-          
+
           <div className="col-span-2 flex justify-end mt-4">
             <button type="submit" className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition">
               Guardar Cliente
